@@ -828,7 +828,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		event.preventDefault();
+		// MODIF
+		if (event.cancelable) event.preventDefault();
 
 		switch ( event.touches.length ) {
 
@@ -870,8 +871,9 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		event.preventDefault();
-		event.stopPropagation();
+		// MODIF
+		// event.preventDefault();
+		// event.stopPropagation();
 
 		switch ( event.touches.length ) {
 
@@ -917,7 +919,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		if ( scope.enabled === false ) return;
 
-		event.preventDefault();
+		// MODIF
+		// event.preventDefault();
 
 	}
 
