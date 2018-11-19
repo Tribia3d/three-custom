@@ -244,10 +244,6 @@ THREE.OrbitControls = function ( object, domElement ) {
 	// Accès à state depuis l'extérieur
 	// this.getState = function () { return state; };
 	// this.getPreviousState = function () { return previousState; };
-	this.getSpherical = function () { return spherical; };
-	this.updateMaxPolarAngle = function (_maxPolarAngle) {
-		this.maxPolarAngle = _maxPolarAngle;
-	};
 	this.enable = function () {
 
 		this.enabled = true;
