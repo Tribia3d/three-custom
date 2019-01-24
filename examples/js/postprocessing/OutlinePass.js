@@ -162,10 +162,12 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 	changeVisibilityOfSelectedObjects: function ( bVisible ) {
 
+		var excludedObjects = this.excludedObjects
+
 		function gatherSelectedMeshesCallBack( object ) {
 
 			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !this.excludedObjects.includes(object) ) {
+			if ( object.isMesh && !excludedObjects.includes(object) ) {
 
 				if ( bVisible ) {
 
@@ -194,12 +196,13 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 	changeVisibilityOfNonSelectedObjects: function ( bVisible ) {
 
+		var excludedObjects = this.excludedObjects
 		var selectedMeshes = [];
 
 		function gatherSelectedMeshesCallBack( object ) {
 
 			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !this.excludedObjects.includes(object) ) selectedMeshes.push( object );
+			if ( object.isMesh && !excludedObjects.includes(object) ) selectedMeshes.push( object );
 
 		}
 
