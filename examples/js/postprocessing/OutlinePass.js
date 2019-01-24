@@ -7,6 +7,7 @@ THREE.OutlinePass = function ( resolution, scene, camera, selectedObjects ) {
 	this.renderScene = scene;
 	this.renderCamera = camera;
 	this.selectedObjects = selectedObjects !== undefined ? selectedObjects : [];
+	this.excludedObjects = [];
 	this.visibleEdgeColor = new THREE.Color( 1, 1, 1 );
 	this.hiddenEdgeColor = new THREE.Color( 0.1, 0.04, 0.02 );
 	this.edgeGlow = 0.0;
@@ -164,7 +165,7 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 		function gatherSelectedMeshesCallBack( object ) {
 
 			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !excludedObjects.includes(object) ) {
+			if ( object.isMesh && !this.excludedObjects.includes(object) ) {
 
 				if ( bVisible ) {
 
@@ -198,7 +199,7 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 		function gatherSelectedMeshesCallBack( object ) {
 
 			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !excludedObjects.includes(object) ) selectedMeshes.push( object );
+			if ( object.isMesh && !this.excludedObjects.includes(object) ) selectedMeshes.push( object );
 
 		}
 
