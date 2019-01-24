@@ -163,7 +163,8 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			if ( object.isMesh ) {
+			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
+			if ( object.isMesh && !excludedObjects.includes(object) ) {
 
 				if ( bVisible ) {
 
@@ -196,7 +197,8 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			if ( object.isMesh ) selectedMeshes.push( object );
+			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
+			if ( object.isMesh && !excludedObjects.includes(object) ) selectedMeshes.push( object );
 
 		}
 
