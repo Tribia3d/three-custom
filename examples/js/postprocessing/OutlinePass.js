@@ -7,7 +7,7 @@ THREE.OutlinePass = function ( resolution, scene, camera, selectedObjects ) {
 	this.renderScene = scene;
 	this.renderCamera = camera;
 	this.selectedObjects = selectedObjects !== undefined ? selectedObjects : [];
-	this.excludedObjects = [];
+	this.excludedObjects = []; // MODIF
 	this.visibleEdgeColor = new THREE.Color( 1, 1, 1 );
 	this.hiddenEdgeColor = new THREE.Color( 0.1, 0.04, 0.02 );
 	this.edgeGlow = 0.0;
@@ -162,12 +162,11 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 	changeVisibilityOfSelectedObjects: function ( bVisible ) {
 
-		var excludedObjects = this.excludedObjects
+		var excludedObjects = this.excludedObjects // MODIF
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !excludedObjects.includes(object) ) {
+			if ( object.isMesh && !excludedObjects.includes( object ) ) { // MODIF
 
 				if ( bVisible ) {
 
@@ -196,13 +195,12 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 	changeVisibilityOfNonSelectedObjects: function ( bVisible ) {
 
-		var excludedObjects = this.excludedObjects
+		var excludedObjects = this.excludedObjects; // MODIF
 		var selectedMeshes = [];
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			// DEBUG: ajout  '&& !excludedObjects.includes(object)'
-			if ( object.isMesh && !excludedObjects.includes(object) ) selectedMeshes.push( object );
+			if ( object.isMesh && !excludedObjects.includes( object ) ) selectedMeshes.push( object ); // MODIF
 
 		}
 
@@ -250,6 +248,28 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 	},
 
+	changeVisibilityOfExcludedObjects: function ( bVisible ) { // MODIF
+
+		var excludedObjects = this.excludedObjects
+
+		function VisibilityChangeCallBack ( object ) {
+
+			if ( excludedObjects.includes( object ) ) {
+
+				var visibility = object.visible;
+
+				if ( !bVisible || object.bVisible ) object.visible = bVisible;
+
+				object.bVisible = visibility;
+
+			}
+
+		}
+
+		this.renderScene.traverse( VisibilityChangeCallBack );
+
+	},
+
 	updateTextureMatrix: function () {
 
 		this.textureMatrix.set( 0.5, 0.0, 0.0, 0.5,
@@ -282,8 +302,10 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 			this.renderScene.background = null;
 
 			// 1. Draw Non Selected objects in the depth buffer
+			this.changeVisibilityOfExcludedObjects( false ); // MODIF
 			this.renderScene.overrideMaterial = this.depthMaterial;
 			renderer.render( this.renderScene, this.renderCamera, this.renderTargetDepthBuffer, true );
+			this.changeVisibilityOfExcludedObjects( true ); // MODIF
 
 			// Make selected objects visible
 			this.changeVisibilityOfSelectedObjects( true );
