@@ -155,8 +155,18 @@ THREE.OrbitControls = function ( object, domElement ) {
 			spherical.phi += sphericalDelta.phi;
 
 			// restrict theta to be between desired limits
-			spherical.theta = Math.max( scope.minAzimuthAngle, Math.min( scope.maxAzimuthAngle, spherical.theta ) );
-
+			// MODIF INVERSION THETA (AZIMUT)
+			if ( scope.maxAzimuthAngle <= scope.minAzimuthAngle ) {
+				// si max <= min alors on inverse
+				if ( spherical.theta >= 0 ) {
+					spherical.theta = Math.max( scope.minAzimuthAngle, spherical.theta ); //Math.min( Math.PI, spherical.theta ) );
+				} else {
+					spherical.theta = Math.min( scope.maxAzimuthAngle, spherical.theta ); //Math.max( -Math.PI, spherical.theta ) );
+				}
+			} else {
+				spherical.theta = Math.max( scope.minAzimuthAngle, Math.min( scope.maxAzimuthAngle, spherical.theta ) );
+			}
+			
 			// restrict phi to be between desired limits
 			spherical.phi = Math.max( scope.minPolarAngle, Math.min( scope.maxPolarAngle, spherical.phi ) );
 
