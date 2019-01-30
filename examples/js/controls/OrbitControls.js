@@ -266,6 +266,12 @@ THREE.OrbitControls = function ( object, domElement ) {
 		state = STATE.NONE;
 
 	};
+	
+	this.getSpherical = function () {
+
+		return spherical
+		
+	}
 	// DEBUG FIN MODIF
 
 	//
