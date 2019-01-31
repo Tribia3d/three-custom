@@ -159,7 +159,13 @@ THREE.OrbitControls = function ( object, domElement ) {
 			if ( scope.maxAzimuthAngle <= scope.minAzimuthAngle ) {
 				// si max <= min alors on inverse
 				if ( spherical.theta >= 0 ) {
-					spherical.theta = Math.max( scope.minAzimuthAngle, spherical.theta );
+					if ( spherical.theta <= scope.maxAzimuthAngle ) {
+						spherical.theta = Math.min( scope.maxAzimuthAngle, spherical.theta );
+					} else if ( spherical.theta > scope.maxAzimuthAngle && spherical.theta < scope.minAzimuthAngle ) {
+						spherical.theta = previousTheta;
+					} else {
+						spherical.theta = Math.max( scope.minAzimuthAngle, spherical.theta );
+					}
 				} else {
 					if ( spherical.theta >= scope.minAzimuthAngle ) {
 						spherical.theta = Math.max( scope.minAzimuthAngle, spherical.theta );
