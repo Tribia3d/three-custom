@@ -191,7 +191,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 			// restrict radius to be between desired limits
 			spherical.radius = Math.max( scope.minDistance, Math.min( scope.maxDistance, spherical.radius ) );
 
-			
+
 			// move target to panned location
 			scope.target.add( panOffset );
 
@@ -280,11 +280,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 		state = STATE.NONE;
 
 	};
-	
+
 	this.getSpherical = function () {
 
 		return spherical
-		
+
 	};
 	// DEBUG FIN MODIF
 
