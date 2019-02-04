@@ -191,6 +191,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 			// restrict radius to be between desired limits
 			spherical.radius = Math.max( scope.minDistance, Math.min( scope.maxDistance, spherical.radius ) );
 
+			
 			// move target to panned location
 			scope.target.add( panOffset );
 
@@ -284,7 +285,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		return spherical
 		
-	}
+	};
 	// DEBUG FIN MODIF
 
 	//
@@ -305,6 +306,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	// current position in spherical coordinates
 	var spherical = new THREE.Spherical();
+	var previousTheta = undefined;
 	var sphericalDelta = new THREE.Spherical();
 
 	var scale = 1;
