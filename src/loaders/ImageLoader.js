@@ -30,7 +30,7 @@ Object.assign( ImageLoader.prototype, {
 		};
 		image.onerror = onError;
 
-		var loader = new THREE.FileLoader();
+		var loader = new THREE.FileLoader( this.manager );
 		loader.setPath( this.path );
 		loader.setResponseType( 'blob' );
 		loader.setWithCredentials( this.withCredentials );
